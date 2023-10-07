@@ -1,0 +1,21 @@
+a = 'Good'
+b = 'Bad'
+print(a + b)
+print(a - b)
+print(a * 3)
+
+c = 50 
+d = 10
+print(f'Вставим числа (c) и (d)')
+
+print(len (a))
+
+a = [1, 3, 6]
+print(a[0])
+
+b = [8, 10, 11]
+
+c = a + b 
+print(c)
+
+print(len(a))
