@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math
-def polar(b = 0.1):
+def polar(b = float(input())):
     t = np.arange(0, math.pi * 8, 0.01)
     x = np.zeros(len(t))
     y = np.zeros(len(t))
@@ -12,6 +12,7 @@ def polar(b = 0.1):
         y0 = math.sin(t[i]) * r
         y[i] = y0
     plt.plot(x, y)
+    plt.grid()
     plt.savefig('fig_11.png')
 if __name__ == '__main__':
 	polar()

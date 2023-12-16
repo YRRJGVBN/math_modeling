@@ -9,8 +9,8 @@ def parabola_plotter(a=1, b=1, c=0):
     plt.ylabel('coord - y')
     plt.title('Parabola')
     plt.legend()
-    
+    plt.grid()
     plt.savefig('fig_3.png')
-	
+    
 if __name__ == '__main__':
 	parabola_plotter()
