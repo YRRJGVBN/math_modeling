@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
-def elips_plotter(a = int(input()), b = int(input()), rx = int(input()), ry = int(input())):
-    x = np.arange(-rx, rx, 0.01)
-    y = np.arange(-ry, ry, 0.01)
+def elips_plotter(a = float(input()), b = float(input()), r = float(input())):
+    x = np.arange(-2 * r, 2 * r, 0.1)
+    y = np.arange(-2 * r, 2 * r, 0.1)
 
     X, Y = np.meshgrid(x, y)
-    fxy = (X ** 2) / (a ** 2) + (Y ** 2) / (b ** 2)
+    fxy = (X ** 2) / (a ** 2) + (Y ** 2) / (b ** 2) - 1
 
     plt.contour(X, Y, fxy, levels=[0])
     plt.savefig('fig_10.png')
