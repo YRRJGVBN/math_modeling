@@ -2,10 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 xdata = []
+V= float(input())
+N = float(input())
+V0 = V / 3.6
+Stotal = (V0 ** 2) / (2 * N * 9.8)
+a = -(V0 ** 2) / (2 * Stotal)
+t = -V0 / a
 def circle_move(R, vx0, time):
     x0 = vx0 * time
     alpha = np.arange(0, 2*np.pi, 0.1)
-    x = x0  + R*np.cos(alpha) - 5
+    x = x0  + R*np.cos(alpha) - 10
     y = R*np.sin(alpha)
     return x, y
 def animate(i):
@@ -13,7 +19,7 @@ def animate(i):
 if __name__ == '__main__':
  
     fig, ax = plt.subplots()
-    ball, = plt.plot([], [], 'o', color='r', label='Ball')
+    ball, = plt.plot([], [], '>', color='r', label='Ball')
  
     edge = 10
     plt.axis('equal')
@@ -22,9 +28,10 @@ if __name__ == '__main__':
     
     ani = FuncAnimation(fig,
                         animate,
-                        frames=100,
+                        frames=np.arange(0, t, 0.1),
                         interval=30
                        )
     plt.plot([0, 0], [-10, 10])
     plt.plot([-100, 100], [0, 0])
+    plt.grid()
     ani.save('animation_3.gif') 
