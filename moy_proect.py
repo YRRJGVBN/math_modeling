@@ -1,8 +1,8 @@
-import numpy as np
+import numpy as np 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 xdata = []
-V= float(input())
+V = float(input())
 N = float(input())
 V0 = V / 3.6
 Stotal = (V0 ** 2) / (2 * N * 9.8)
