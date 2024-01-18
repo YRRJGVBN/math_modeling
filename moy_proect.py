@@ -2,15 +2,15 @@ import math
 import numpy as np 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-xdata = []
-V = float(input())
-N = float(input())
+
+
 def fizica_schitat(V, N):
     V0 = V / 3.6
     Stotal = (V0 ** 2) / (2 * N * 9.8)
     a = -(V0 ** 2) / (2 * Stotal)
     t = -V0 / a
     return Stotal, t, V0
+
 
 def circle_move(R, vx0, time):
     x0 = vx0 * time
@@ -19,10 +19,16 @@ def circle_move(R, vx0, time):
     y = R*np.sin(alpha)
     return x, y
 
+
 def animate(i):
     global V0
     ball.set_data(circle_move(R=0, vx0=V0, time=i))
+
+
 if __name__ == '__main__':
+    xdata = []
+    V = float(input())
+    N = float(input())
 
     fig, ax = plt.subplots()
     ball, = plt.plot([], [], '>', color='r', label='Ball')
@@ -31,6 +37,8 @@ if __name__ == '__main__':
     plt.axis('equal')
     ax.set_xlim(-edge, edge)
     ax.set_ylim(-edge, edge)
+
+    Stotal = fizica_schitat(V, N)[0]
 
     ani = FuncAnimation(fig,
                         animate,
