@@ -14,26 +14,39 @@ a = -(V0 ** 2) / (2 * Stotal)
 t = -V0 / a
 
 
-def circle_move(vx0, time):
-    x0 = vx0 * time
+def circle_move(V0, time):
+    x0 = V0 * time
     x = x0 - 75
     y = 0
     return x, y
 
-def circle_move2(vx0, time, a, t):
-    x0 = vx0 * time
-    x = vx0 * t + (a * t ** 2) / 2
-    y = 0
-    return x, y
+
+fig, ax = plt.subplots()
+ax.set_xlim(0, 5)
+ax.set_ylim(-2, 2)
+
+line, = ax.plot([], [], lw=2)
+
+v0 = 1
+a = -0.5
+    
+t = np.linspace(0, 5, 100)
+x = v0 * t + 0.5 * a * t ** 2 
+
+def init():
+    line.set_data([], [])
+    return line,
 
 def animate(i):
-    if (circle_move(vx0 = V0, time=i)[0])<= 0:
-        ball.set_data(circle_move(vx0 = V0, time=i))
-    else:
-        ball2.set_data(circle_move2(vx0 = V0, time=i, a = a, t = t))
+    if (circle_move(V0, time=i)[0])< 0:
+        ball.set_data(circle_move(V0, time=i))
+    elif (circle_move(V0, time=i)[0]) == 0:
+        xdata = t[:i]
+        ydata = x[:i]
+        line.set_data(xdata, ydata)
+        return line,
 
 if __name__ == '__main__':
-    print(circle_move(vx0 = V0, time=1)[0])
     fig, ax = plt.subplots()
     ball, = plt.plot([], [], '>', color='r', label='Ball')
     ball2, = plt.plot([], [], '>', color='r', label='Ball2')
