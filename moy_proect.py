@@ -29,7 +29,7 @@ line, = ax.plot([], [], lw=2)
 
 v0 = 1
 a = -0.5
-    
+
 t = np.linspace(0, 5, 100)
 x = v0 * t + 0.5 * a * t ** 2 
 
@@ -38,9 +38,9 @@ def init():
     return line,
 
 def animate(i):
-    if (circle_move(V0, time=i)[0])< 0:
+    if (circle_move(V0, time=i)[0]) < 0:
         ball.set_data(circle_move(V0, time=i))
-    elif (circle_move(V0, time=i)[0]) == 0:
+    if (circle_move(V0, time=i)[0]) == 0:
         xdata = t[:i]
         ydata = x[:i]
         line.set_data(xdata, ydata)

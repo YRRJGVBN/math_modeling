@@ -8,32 +8,45 @@ ydata = []
 V = 60
 N = 0.5
 
-V0 = V / 3.6
-Stotal = (V0 ** 2) / (2 * N * 9.8)
-a = -(V0 ** 2) / (2 * Stotal)
-t = -V0 / a
+def car1():
+    V0 = V / 3.6
+    Stotal = (V0 ** 2) / (2 * N * 9.8)
+    a = -(V0 ** 2) / (2 * Stotal)
+    t = -V0 / a
+    def car_move(V0, time):
+        x0 = V0 * time
+        x = x0 - 75
+        y = 0
+        return x, y, t, a, Stotal
+    
 
+def car2():
+    fig, ax = plt.subplots()
+    ax.set_xlim(0, 5)
+    ax.set_ylim(-2, 2)
 
-def circle_move(vx0, time):
-    x0 = vx0 * time
-    x = x0 - 75
-    y = 0
-    return x, y
+    line, = ax.plot([], [], lw=2)
 
-def circle_move2(vx0, time, a, t):
-    x0 = vx0 * time
-    x = vx0 * t + (a * t ** 2) / 2
-    y = 0
-    return x, y
+    global a, V0
+
+    t = np.linspace(0, 5, 100)
+    x = V0 * t + 0.5 * a * t ** 2 
+
+    def init():
+        line.set_data([], [])
+        return line,
 
 def animate(i):
-    if (circle_move(vx0 = V0, time=i)[0])<= 0:
-        ball.set_data(circle_move(vx0 = V0, time=i))
-    else:
-        ball2.set_data(circle_move2(vx0 = V0, time=i, a = a, t = t))
+    global line, t, x
+    if (car1(V0, time=i)[0]) == 0:
+        car2.set_data(car2(V0, time=i))
+    if (car1(V0, time=i)[0]) < 0:
+        xdata = t[:i]
+        ydata = x[:i]
+        line.set_data(xdata, ydata)
+        return line,
 
 if __name__ == '__main__':
-    print(circle_move(vx0 = V0, time=1)[0])
     fig, ax = plt.subplots()
     ball, = plt.plot([], [], '>', color='r', label='Ball')
     ball2, = plt.plot([], [], '>', color='r', label='Ball2')
@@ -42,8 +55,7 @@ if __name__ == '__main__':
     plt.axis('equal')
     ax.set_xlim(-edge, edge)
     ax.set_ylim(-edge, edge)
-
-
+    
     ani = FuncAnimation(fig,
                         animate,
                         frames=np.arange(0, math.ceil(Stotal), 0.1),
