@@ -1,36 +1,25 @@
-def print_board(board):
-    for i in range(3):
-        for j in range(3):
-            print(board[i][j], end=" ")
-            if j < 2:
-                print("|", end=" ")
-        print()
-        if j < 2:
-            print("-" * 9)
+from bs4 import BeautifulSoup
+import requests
 
-def check_winner(board, player):
-    for row in board:
-        if all(cell == player for cell in row):
-            return True
-        
-    for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
-    
-    if all(board[i][i] == player for i in range(3)):
-        return True
-    
-    if all(board[i][2 - i] == player for i in range(3)):
-        return True
-    
-    return False
+headers = {
+    'User-Agent': 'Mosila/5.0 (Windows NT 10.0; Win64: x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029 Safari/537.3'
+}
 
-def check_draw(board):
-    for row in board:
-        if " " in row:
-            return False
-    return True
+def weather(city):
+    city = city.replace(" ", "+")
+    res = requests.get(f'https://www.google.ru/search?q={city}+погода', headers = headers)
+    print("Searchig in google.....\n")
+    soup = BeautifulSoup(res.text, 'html.parser')
 
-def main():
-    board = [[" " for _ in range(3)] for _ in range(3)]
-    
+    location = soup.select('.BNeawe.iBp4i.AP7Wnd')[0].getText().strip()
+    time = soup.select('.BNeawe.tAd8D.AP7Wnd')[0].getText().strip()
+    info = soup.select('.BNeawe.tAd8D.AP7Wnd')[1].getText().strip()
+    weather = soup.select('.BNeawe.iBp4i.AP7Wnd')[1].getText().strip()
+
+    print(location)
+    print(time)
+    print(info)
+
+print("Введите название города")
+city = input()
+weather(city)
