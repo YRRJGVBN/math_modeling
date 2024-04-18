@@ -1,31 +1,30 @@
+import pymorphy2
+def morphy(word):
+
 def worgle(word, Tword):
     zn = []
     w = list(word)
     Tw = list(Tword)
 
-    if len(w) != 5:
-        print('Вводите только слова из 5 букв')
-        return 0
-    else:
-        for i in w:
-            if i in Tw:
-                zn.append('$')
-            else:
-                zn.append('X')
+    for i in w:
+        if i in Tw:
+            zn.append('$')
+        else:
+            zn.append('X')
 
-        for i in range(5):
-            if w[i] == Tw[i]:
-                zn[i] = '0'
-        r = ''.join(zn)
-        print(word)
-        print(r)
-        return 1
+    for i in range(5):
+        if w[i] == Tw[i]:
+            zn[i] = '0'
+    r = ''.join(zn)
+    print(word)
+    print(r)
 
 m = 0
 Tword = 'барак'
 
 for i in range(6):
     word = input()
+    morphy(word)
     worgle(word, Tword)
     m += 1
 
