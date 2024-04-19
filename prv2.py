@@ -1,5 +1,8 @@
-import pymorphy2
 def morphy(word):
+    if len(word) != 5:
+        return 0
+    else:
+        return 1
 
 def worgle(word, Tword):
     zn = []
@@ -22,11 +25,13 @@ def worgle(word, Tword):
 m = 0
 Tword = 'барак'
 
-for i in range(6):
+while 1:
     word = input()
-    morphy(word)
-    worgle(word, Tword)
-    m += 1
+    if morphy(word):
+        worgle(word, Tword)
+        m += 1
+    else:
+        print('Вводите только слова из 5 букв')
 
     if m == 6:
         print(f'Вы проиграли! Загаданное слово: {Tword}')
